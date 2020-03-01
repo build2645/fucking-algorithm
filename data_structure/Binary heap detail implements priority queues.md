@@ -1,12 +1,16 @@
 # Binary heap detail implements priority queues
 
+Author: [labuladong](https://github.com/labuladong)
+
+Translator: [build2645](https://github.com/build2645)
+
 There is nothing mysterious about binary heap, and its properties are simpler than binary search tree BST.The main operations are 'sink' and 'swim' to maintain the binary heap properties.There are two main applications, the first is a sorting method "heap sort", the second is a very useful data structure "priority queue".
 
 This article takes implementing a Priority Queue as an example，using pictures and human language to describe how binary heap works.
 
 ### 1、Binary heap overview
 
-First of all, what does a binary heap have to do with a binary tree? Why do people always draw binary trees as binary heap?
+First of all, what does a binary heap have to do with a binary tree? Why do people always draw binary heap as binary tree?
 
 Because a binary heap is a special kind of binary tree (complete binary tree) that is stored in an array.In a general linked list binary tree, we manipulate Pointers to nodes, whereas in an array, we use an array index as a pointer:
 
@@ -31,7 +35,7 @@ Draw a picture and you'll understand immediately. Notice that the first index of
 
 PS：Because array indexes are Numbers, characters are treated as array indexes for convenience.
 
-As you can see, with arr[1] as the root of the whole tree, the parent node of each node and the indexes of the left and right children can be obtained by simple calculation, which is a clever part of binary heap design.And for the sake of simplicity, I'm going to draw all of these binary tree structures, so I'm sure you can match a tree to an array.`
+As you can see, with arr[1] as the root of the whole tree, the parent node of each node and the indexes of the left and right children can be obtained by simple calculation, which is a clever part of binary heap design.And for the sake of simplicity, I'm going to draw all of these binary tree structures, so I'm sure you can match a tree to an array.
 
 Binary heap is also divided into maximum heap and minimum heap.**The properties of the maximum heap are: each node is greater than or equal to its two children.** Similarly, the properties of the minimum heap are：each node is less than or equal to its children.
 
@@ -115,7 +119,7 @@ The observant reader may ask, aren't these two operations reciprocal, so the ope
 
 Yes, the operations are inversely equivalent, but in the end we will only operate at the bottom and the top of the heap (we'll see why), and obviously the "misaligned" elements at the bottom of the heap need to float up, and the "misaligned" elements at the top of the heap need to sink.
 
-**上浮的代码实现：**
+**swiming code implementation：**
 
 ```java
 private void swim(int k) {
@@ -135,7 +139,7 @@ Draw a GIF to help you understand：
 
 **Sinking code implementation：**
 
-Sinking is slightly more complicated than floating up, because floating up A node A only requires A to compare the size with its parent node; However, to sink A node A, we need to compare the size of A with its **two child nodes** If A is not the largest, we need to adjust the position and exchange the larger child node with A.
+Sinking is slightly more complicated than rising,Because some node A is floating up, all you need to do is compare the value of A with its parent,But sinking some node A,you need to compare the value of A with its two child nodes, and if A is not the largest, you need to adjust the position, and then swap the larger child node with A.
 
 ```java
 private void sink(int k) {
@@ -143,7 +147,7 @@ private void sink(int k) {
     while (left(k) <= N) {
         // Let's assume that the left node is larger
         int older = left(k);
-        // If the right node exists, compare the size
+        // If the right node exists, compare the value
         if (right(k) <= N && less(older, right(k)))
             older = right(k);
         // Node k is bigger than both of the children, so you don't have to sink
@@ -208,6 +212,4 @@ Priority queues are implemented based on binary heap, with the main operations b
 
 Perhaps this is the power of data structure, simple operation can achieve clever functions, really admire the invention of binary heap algorithm people!
 
-**Commit to making the algorithm clear! Welcome to my WeChat public labuladong for more articles that are easy to understand**：
-
-![labuladong](../pictures/labuladong.png)
+**Commit to making the algorithm clear! Welcome to my WeChat public labuladong for more articles that are easy to understand**
